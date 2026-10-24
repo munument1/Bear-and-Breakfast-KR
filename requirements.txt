@@ -1,0 +1,5 @@
+UnityPy==1.25.2
+fonttools==4.63.0
+Pillow==12.2.0
+msgpack==1.2.3
+pyinstaller==6.20.0

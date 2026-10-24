@@ -1,0 +1,12 @@
+{
+  "version": "0.1",
+  "steam_app_id": 1136370,
+  "tested_steam_build_id": "20292966",
+  "original_sha256": {
+    "StreamingAssets/localization_assets_all.bundle": "e24e1f0db2359f2721cd8910b826353fe7f545389c5b12a381edf920f91fdcb7",
+    "StreamingAssets/uipack_assets_all.bundle": "fc8e479b7c1317e3d734b18e8bc9b225b4463d0015a37d00b33155d1be4e9c95",
+    "StreamingAssets/fontspack_assets_all.bundle": "a412c782395129041126d0a45a6a2d61844db8945e1b2788a205310c3b7194f8",
+    "StreamingAssets/aa/catalog.json": "fb74cae5a1107626114a922b878c8aaa377e36a8cace198da735d58c5c7ca5ed",
+    "sharedassets0.assets": "95f529bb32840c87949d0fdfe08b6e927649e977c72c72eff31636bfa8879eaa"
+  }
+}
