@@ -1,0 +1,31 @@
+Bear and Breakfast 한국어 패치 v0.1.1 — 덮어쓰기판
+
+설치
+1. 게임을 완전히 종료합니다.
+2. Steam → 게임 우클릭 → 관리 → 로컬 파일 탐색으로 게임 폴더를 엽니다.
+3. 아래 변경 파일 5개를 다른 폴더에 백업합니다.
+   BearAndBreakfast_Data/sharedassets0.assets
+   BearAndBreakfast_Data/StreamingAssets/localization_assets_all.bundle
+   BearAndBreakfast_Data/StreamingAssets/uipack_assets_all.bundle
+   BearAndBreakfast_Data/StreamingAssets/fontspack_assets_all.bundle
+   BearAndBreakfast_Data/StreamingAssets/aa/catalog.json
+4. 이 ZIP의 BearAndBreakfast_Data 폴더를 BearAndBreakfast.exe가 있는 폴더에 복사하고 파일 교체를 허용합니다.
+   기존 BearAndBreakfast_Data 폴더에 합쳐야 합니다. 기존 폴더 전체를 삭제하지 마세요.
+5. 직접 게임을 실행하고 언어를 English로 선택합니다.
+
+설치 프로그램이나 별도 도구 실행은 필요하지 않습니다. 본 덮어쓰기판에는 세이브 수정 도구가 없고, 저장 파일을 읽거나 변경하지 않습니다.
+기존 세이브에 저장된 영문 퀘스트 제목/설명/목표는 그대로 남을 수 있습니다. 세이브를 삭제하거나 새 게임을 시작할 필요는 없습니다.
+
+제거
+게임을 종료하고 백업해 둔 5개 파일을 돌려놓으세요. 백업이 없으면 Steam 무결성 검사로 원본 게임 파일을 복원할 수 있습니다.
+기존 설치 프로그램을 사용한 적이 있다면 원복 기능은 해당 설치 프로그램의 기록과 파일 해시를 기준으로 하므로, 덮어쓰기판 설치 후에는 일치하지 않아 중단될 수 있습니다. 이 경우 수동 백업 복원 또는 Steam 무결성 검사를 이용하세요.
+
+지원 및 제한
+Windows Steam판 빌드 20292966 기준. 다른 빌드나 동일 파일을 변경하는 모드와의 호환성은 확인되지 않았습니다.
+이 방식은 설치 시 버전 확인이나 자동 백업을 수행하지 않으므로 지원 버전과 백업을 직접 확인하세요.
+이 판은 배포 가능한 나눔고딕 원본 폰트를 포함합니다. 폰트의 권리 및 SIL OFL 1.1 전문은 NanumGothic-OFL.txt를 참고하세요.
+설치 프로그램판의 맑은 고딕과 글꼴 모양/간격이 조금 다를 수 있습니다. 전체 게임 화면에서 줄바꿈을 실기 검수한 버전은 아닙니다.
+전체 텍스트 8,725개 항목 및 한국어 타이틀 로고가 포함됩니다. AI를 활용한 번역 및 로고 제작입니다.
+
+배포: munument1 / https://github.com/munument1/Bear-and-Breakfast-KR
+원작 게임과 그래픽의 권리는 각 권리자에게 있으며, 공식 한국어 지원이 아닙니다.
