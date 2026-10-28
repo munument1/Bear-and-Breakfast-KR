@@ -45,7 +45,7 @@ def fix_lua(s):
    match=quoted.match(s,i);assert match,('bad Lua string',i);i=match.end();continue
   if s[i]=='{':
    pre=s[max(0,i-250):i]
-   if re.search(r'\bItem\["(?:\\.|[^"\\])*"\]\s*=\s*$',pre):group='Item'
+   if re.search(r'\bItem(?:\["(?:\\.|[^"\\])*"\])?\s*=\s*$',pre):group='Item'
    elif re.search(r'\bActor\s*=\s*$',pre):group='Actor'
    elif re.search(r'\bLocation\s*=\s*$',pre):group='Location'
    elif re.search(r'\bVariable\s*=\s*$',pre):group='Variable'
@@ -80,7 +80,9 @@ def fix_lua(s):
  cursor=0;out=[]
  for start,end,value,*_ in changes:out.extend([s[cursor:start],value]);cursor=end
  out.append(s[cursor:]);assert ''.join(out)==new
- assert quest_count>0,'No known saved quest table was found'
+ # Empty/new saves and saves without cached quest records are valid.
+ # Only known, allowlisted display fields are changed; zero matches is a
+ # successful no-op, never evidence that a save should be rewritten.
  return new,changes,dict(counts),quest_count
 
 save_dir=Path(os.environ['BNBKR_SAVE_DIR'])
@@ -90,13 +92,25 @@ for path in sorted(save_dir.iterdir()):
  if not path.is_file() or not re.fullmatch(r'Save\d+',path.name):continue
  raw=path.read_bytes();data=gzip.decompress(raw);unpacker=msgpack.Unpacker(raw=False,strict_map_key=False,max_buffer_size=64*1024*1024);unpacker.feed(data);state=next(unpacker);consumed=unpacker.tell()
  assert not any(data[consumed:]),'Unexpected nonzero trailing save data'
- old=state['dialogueSystemData'];new,changes,counts,quests=fix_lua(old)
+ old=state.get('dialogueSystemData')
+ if old is None or old=='':
+  reports.append({'file':str(path),'changed_fields':0,'quest_tables_checked':0,'note':'empty_dialogue_data_unchanged'});continue
+ assert isinstance(old,str),'Unexpected dialogueSystemData type; save was not modified'
+ new,changes,counts,quests=fix_lua(old)
+ note='no_known_quest_records_matched' if not quests else 'known_quest_records_checked'
+ if not quests:print(f'{path.name}: 저장된 퀘스트 표시 데이터가 없거나 일치하지 않아 해당 문구를 그대로 유지합니다.',flush=True)
  if not changes:
-  reports.append({'file':str(path),'changed_fields':0,'quest_tables_checked':quests});continue
+  reports.append({'file':str(path),'changed_fields':0,'quest_tables_checked':quests,'note':note});continue
  oldbytes=old.encode('utf-8');offset=data.find(oldbytes);assert offset>=5 and data.count(oldbytes)==1
- assert data[offset-5]==0xdb and struct.unpack_from('>I',data,offset-4)[0]==len(oldbytes),'Unexpected MessagePack string layout'
+ headers=[bytes([0xa0+len(oldbytes)])] if len(oldbytes)<32 else []
+ if len(oldbytes)<=255:headers.append(b'\xd9'+bytes([len(oldbytes)]))
+ if len(oldbytes)<=65535:headers.append(b'\xda'+struct.pack('>H',len(oldbytes)))
+ headers.append(b'\xdb'+struct.pack('>I',len(oldbytes)))
+ matches=[h for h in headers if offset>=len(h) and data[offset-len(h):offset]==h]
+ assert len(matches)==1,'Unexpected or ambiguous MessagePack string layout'
+ header=matches[0]
  packed=msgpack.packb(new,use_bin_type=True)
- payload=data[:offset-5]+packed+data[offset+len(oldbytes):consumed]
+ payload=data[:offset-len(header)]+packed+data[offset+len(oldbytes):consumed]
  capacity=len(data)
  while capacity<len(payload):capacity*=2
  output=payload+b'\0'*(capacity-len(payload))

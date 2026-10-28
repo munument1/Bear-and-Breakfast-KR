@@ -1,7 +1,7 @@
-"""Windows installer for Bear and Breakfast Korean localization v0.1."""
+"""Windows installer for Bear and Breakfast Korean localization v0.1.1."""
 import argparse,contextlib,datetime,hashlib,json,os,runpy,shutil,subprocess,sys,traceback
 from pathlib import Path
-VERSION='0.1'
+VERSION='0.1.1'
 BASE=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parent))
 RES=BASE/'resources'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -22,6 +22,9 @@ def restore_files(data,backup,names):
 def migrate(work,mode,skip):
  if skip or not save_dir().exists() or not any(save_dir().glob('Save[0-9]*')):return
  os.environ['BNBKR_SAVE_DIR']=str(save_dir())
+ # Existing installs may still cache an older migration helper. Refresh it
+ # for both reinstall and restore without rebuilding unchanged game assets.
+ shutil.copy2(RES/'patch/migrate_save_text.py',work/'patch/migrate_save_text.py')
  run(work/'patch/migrate_save_text.py',mode)
 def install(data,skip_saves=False):
  no_game();config=read(RES/'supported.json');names=list(config['original_sha256'])
@@ -32,7 +35,8 @@ def install(data,skip_saves=False):
    for name,value in state['installed_sha256'].items():
     if sha(data/name)!=value:raise RuntimeError('설치 후 게임 파일이 변경되었습니다. Steam 무결성 검사를 한 뒤 다시 설치해 주세요.')
    migrate(Path(state['work']), 'ko',skip_saves)
-   print('이미 v0.1이 설치되어 있습니다. 저장 파일 표시 문구도 확인했습니다.');return
+   state['version']=VERSION;write(status,state)
+   print(f'이미 패치가 설치되어 있습니다. v{VERSION}으로 저장 파일 표시 문구를 확인했습니다.');return
  for name,value in config['original_sha256'].items():
   if not (data/name).is_file() or sha(data/name)!=value:raise RuntimeError('지원하는 원본 게임 파일과 다릅니다: '+name+'\nSteam 무결성 검사로 원본을 복원해 주세요. 지원 빌드: 20292966')
  if not (Path(os.environ.get('WINDIR',r'C:\Windows'))/'Fonts/malgun.ttf').is_file():raise RuntimeError('Windows 맑은 고딕 폰트가 필요합니다.')
@@ -117,7 +121,7 @@ def main():
  if not (game/'BearAndBreakfast_Data').is_dir():raise RuntimeError('게임 폴더를 확인해 주세요.')
  mode=args.mode
  if mode is None:
-  print('Bear and Breakfast 한국어 패치 v0.1\n1: 설치 / 2: 원복 / 그 외: 종료')
+  print(f'Bear and Breakfast 한국어 패치 v{VERSION}\n1: 설치 / 2: 원복 / 그 외: 종료')
   choice=input('선택: ').strip();mode={'1':'install','2':'restore'}.get(choice)
   if mode is None:return
  home=game/'.BearAndBreakfast-KR';home.mkdir(exist_ok=True)

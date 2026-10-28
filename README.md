@@ -1,10 +1,10 @@
-# Bear and Breakfast 한국어 패치 — 곰과 아침식사 v0.1
+# Bear and Breakfast 한국어 패치 — 곰과 아침식사 v0.1.1
 
 ![곰과 아침식사 한국어 로고](resources/image_localization/logo_ko_preview.png)
 
 Windows Steam판 **Bear and Breakfast**의 비공식 한국어 패치입니다. 게임 언어의 **English** 슬롯을 한국어로 바꿉니다.
 
-[v0.1 다운로드](https://github.com/munument1/Bear-and-Breakfast-KR/releases/tag/v0.1) · [오류 제보](https://github.com/munument1/Bear-and-Breakfast-KR/issues)
+[v0.1.1 다운로드](https://github.com/munument1/Bear-and-Breakfast-KR/releases/tag/v0.1.1) · [오류 제보](https://github.com/munument1/Bear-and-Breakfast-KR/issues)
 
 ## 포함 내용
 
@@ -14,7 +14,7 @@ Windows Steam판 **Bear and Breakfast**의 비공식 한국어 패치입니다. 
 - 한글 폰트 표시와 기존 저장 파일에 남은 영문 퀘스트 문구 수정
 - 원본 백업 및 원복 기능
 
-AI를 활용한 번역 초안과 문맥·말투 검수를 거쳤습니다. 타이틀 로고도 AI 생성 이미지를 사용했습니다. v0.1은 첫 공개 버전으로, 전체 플레이 구간에 대한 실기 검수가 끝난 버전은 아닙니다. 오역이나 화면 넘침이 남아 있을 수 있습니다. 타이틀 로고 외 이미지 전체의 한글화를 포함하지는 않습니다.
+AI를 활용한 번역 초안과 문맥·말투 검수를 거쳤습니다. 타이틀 로고도 AI 생성 이미지를 사용했습니다. 초기 공개판으로, 전체 플레이 구간에 대한 실기 검수가 끝난 버전은 아닙니다. 오역이나 화면 넘침이 남아 있을 수 있습니다. 타이틀 로고 외 이미지 전체의 한글화를 포함하지는 않습니다.
 
 ## 지원 환경
 
@@ -26,9 +26,11 @@ AI를 활용한 번역 초안과 문맥·말투 검수를 거쳤습니다. 타�
 
 ## 설치
 
+v0.1에서 `No known saved quest table was found` 오류가 발생했다면 v0.1.1 설치 프로그램으로 다시 설치하세요. 세이브를 삭제할 필요가 없습니다. 퀘스트 캐시가 없는 세이브는 그대로 보존합니다.
+
 1. 게임을 완전히 종료합니다.
-2. Releases에서 **BearAndBreakfast-KR-v0.1.zip**을 다운로드하고 압축을 풉니다. GitHub의 자동 생성 `Source code` 파일은 일반 사용자용 설치 파일이 아닙니다.
-3. `BearAndBreakfast-KR-v0.1.exe`를 실행합니다. `BearAndBreakfast.exe`가 있는 게임 폴더를 선택합니다. 설치 파일을 게임 폴더에 두면 자동으로 경로를 찾습니다.
+2. Releases에서 **BearAndBreakfast-KR-v0.1.1.zip**을 다운로드하고 압축을 풉니다. GitHub의 자동 생성 `Source code` 파일은 일반 사용자용 설치 파일이 아닙니다.
+3. `BearAndBreakfast-KR-v0.1.1.exe`를 실행합니다. `BearAndBreakfast.exe`가 있는 게임 폴더를 선택합니다. 설치 파일을 게임 폴더에 두면 자동으로 경로를 찾습니다.
 4. 콘솔 메뉴에서 **1: 설치**를 선택하고 완료 메시지를 기다립니다. PC에 따라 수 분 걸릴 수 있습니다.
 5. 직접 게임을 실행하고 언어를 **English**로 선택합니다.
 
